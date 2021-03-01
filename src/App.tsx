@@ -1,8 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import WeatherCurrent from "./components/WeatherCurrent/index";
 
 function App() {
+  return (
+    <WeatherCurrent/>
+  );
+}
+
+/*function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,6 +28,6 @@ function App() {
       </header>
     </div>
   );
-}
+}*/
 
 export default App;
