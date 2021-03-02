@@ -1,8 +1,10 @@
 import React, {CSSProperties} from 'react';
+import "./style.css";
 
 interface ICurrentTempProps {
     currentTemp: number;
     feelTemp: number;
+    iconId: string;
 }
 
 function WeatherBlockCurrentTemp(props: ICurrentTempProps){
@@ -24,20 +26,20 @@ function WeatherBlockCurrentTemp(props: ICurrentTempProps){
     else if(currentTemp > 30)
         color = "orange";
 
-    const wrapperStyles: CSSProperties = {
-        backgroundColor: color,
-        width: "160px",
-        height: "50px",
-        textAlign: "center",
-        borderTopLeftRadius: "10px",
-        borderTopRightRadius: "10px"
-    };
-
     return(
-        <div style={wrapperStyles}>
-            <span>{currentTemp}</span><br/>
-            <span>Feels like: {feelTemp}</span>
+        <>
+        <div className={"weather__temp " + color }>
+            <div className="weather__current-temp">
+                {currentTemp}
+            </div>
+            <div className="weather__feels-like">
+                Feels like: {feelTemp}
+            </div>
         </div>
+        <div className="weather__icon">
+            <img src={`http://openweathermap.org/img/wn/${props.iconId}@2x.png`} alt=""/>
+        </div>
+        </>
     );
 }
 

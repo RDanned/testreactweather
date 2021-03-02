@@ -9,10 +9,28 @@ interface IWeatherBlockProps {
     cityName: string
 }
 
+interface IWeatherIcon {
+    icon: string
+}
+
+interface IWeatherIconArray {
+    temp: number,
+    feels_like: number,
+    weather: Array<IWeatherIcon>
+}
+
 function WeatherBlock(props: IWeatherBlockProps){
     const apiKey = useApiKey();
     const cityName = props.cityName;
-    const [mainData, setMainData] = useState({temp: 0, feels_like: 0});
+    //const [mainData, setMainData] = useState({temp: 0, feels_like: 0});
+    const [loading, setLoading] = useState(true);
+    const [mainData, setMainData] = useState<IWeatherIconArray|any>({
+        temp: 0,
+        feels_like: 0,
+        weather: [
+            {icon: "no"}
+        ]
+    });
 
     useEffect(() => {
 
@@ -21,35 +39,50 @@ function WeatherBlock(props: IWeatherBlockProps){
                 .then( response => {
                     let test = response.data;
                     console.log(test);
-                    setMainData(test.main);
+                    setMainData(test);
+                    setLoading(false);
                 })
                 ;
         };
 
         fetchData();
-
     }, [])
+
+    console.log("main data");
+    console.log(mainData);
 
     const convertToCels = (temp: number): number => {
         return Number((temp - 273).toFixed(1));
     }
 
-
-    return (
-        <Container style={{height: "100vh"}}>
-            <Row style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
-                <Col lg={6}>
-                    <Card>
-                        <WeatherBlockCurrentTemp
-                            feelTemp={convertToCels(mainData.feels_like)}
-                            currentTemp={convertToCels(mainData.temp)}/>
-                        <p>{(mainData.feels_like - 273).toFixed()}</p>
-                        weather
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
-    );
+    if(loading)
+        return (
+            <Container style={{height: "100vh"}}>
+                <Row style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
+                    <Col lg={6}>
+                        <Card>
+                            Loading
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        );
+    else
+        return (
+            <Container style={{height: "100vh"}}>
+                <Row style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
+                    <Col lg={6}>
+                        <Card>
+                            <WeatherBlockCurrentTemp
+                                feelTemp={convertToCels(mainData.main.feels_like)}
+                                currentTemp={convertToCels(mainData.main.temp)}
+                                iconId={mainData.weather[0].icon}
+                            />
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        );
 }
 
 export default WeatherBlock;
