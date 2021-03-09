@@ -1,0 +1,16 @@
+.blue{background-color: blue;}
+.aqua{background-color: aqua;}
+.gray{background-color: gray;}
+.beige{background-color: beige;}
+.gold{background-color: gold;}
+.orange{background-color: orange;}
+
+.weather__temp {
+    width: 160px;
+    height: 50px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+
