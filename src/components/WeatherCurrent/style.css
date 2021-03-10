@@ -5,12 +5,20 @@
 .gold{background-color: gold;}
 .orange{background-color: orange;}
 
+.weather__current-block {
+    flex-direction: row;
+}
+
 .weather__temp {
     width: 160px;
     height: 50px;
     text-align: center;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.weather__icon {
+    max-width: 50px;
 }
 
 

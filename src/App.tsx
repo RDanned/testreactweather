@@ -1,11 +1,15 @@
 import React from 'react';
 import logo from './logo.svg';
+import {Provider} from 'react-redux';
+import store from './redux/store';
 import './App.css';
-import WeatherCurrent from "./components/WeatherCurrent/index";
+import WeatherCurrent from "./components/WeatherCurrent";
 
 function App() {
   return (
-    <WeatherCurrent/>
+      <Provider store={store}>
+        <WeatherCurrent/>
+      </Provider>
   );
 }
 

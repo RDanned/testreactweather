@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Container, Row, Col, Card} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {useApiKey} from '../../hooks/useApiKey';
+//import {useApiKey} from '../../hooks/useApiKey';
+import {apiKey} from "../../utils/settings";
 import WeatherBlockCurrentTemp from "./WeatherBlockCurrentTemp";
+import {connect} from 'react-redux';
+import {getCity} from '../../redux/selectors';
 
 interface IWeatherBlockProps {
     cityName: string
@@ -16,12 +19,12 @@ interface IWeatherIcon {
 interface IWeatherIconArray {
     temp: number,
     feels_like: number,
-    weather: Array<IWeatherIcon>
+    weather: Array<any>
 }
 
-function WeatherBlock(props: IWeatherBlockProps){
-    const apiKey = useApiKey();
-    const cityName = props.cityName;
+function WeatherBlock(props: any){
+    console.log(props.city);
+    const cityName = props.city.name;
     //const [mainData, setMainData] = useState({temp: 0, feels_like: 0});
     const [loading, setLoading] = useState(true);
     const [mainData, setMainData] = useState<IWeatherIconArray|any>({
@@ -32,21 +35,21 @@ function WeatherBlock(props: IWeatherBlockProps){
         ]
     });
 
+    const fetchData = async () => {
+        await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+            .then( response => {
+                let test = response.data;
+                console.log(test);
+                setMainData(test);
+                setLoading(false);
+            });
+    };
+
     useEffect(() => {
-
-        const fetchData = async () => {
-            await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
-                .then( response => {
-                    let test = response.data;
-                    console.log(test);
-                    setMainData(test);
-                    setLoading(false);
-                })
-                ;
-        };
-
-        fetchData();
-    }, [])
+        if(cityName.length){
+            fetchData();
+        }
+    }, [cityName])
 
     console.log("main data");
     console.log(mainData);
@@ -58,9 +61,10 @@ function WeatherBlock(props: IWeatherBlockProps){
     if(loading)
         return (
             <Container style={{height: "100vh"}}>
-                <Row style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
+                <Row>
                     <Col lg={6}>
                         <Card>
+                            {cityName}
                             Loading
                         </Card>
                     </Col>
@@ -70,9 +74,10 @@ function WeatherBlock(props: IWeatherBlockProps){
     else
         return (
             <Container style={{height: "100vh"}}>
-                <Row style={{height: "100%", justifyContent: "center", alignItems: "center"}}>
+                <Row>
                     <Col lg={6}>
-                        <Card>
+                        <Card className="weather__current-block">
+                            {cityName}
                             <WeatherBlockCurrentTemp
                                 feelTemp={convertToCels(mainData.main.feels_like)}
                                 currentTemp={convertToCels(mainData.main.temp)}
@@ -85,4 +90,9 @@ function WeatherBlock(props: IWeatherBlockProps){
         );
 }
 
-export default WeatherBlock;
+const mapStateToProps = (state: any) => {
+    const city = getCity(state);
+    return { city };
+};
+
+export default connect(mapStateToProps)(WeatherBlock);

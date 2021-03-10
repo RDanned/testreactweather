@@ -1,11 +1,15 @@
 import {useState} from 'react';
 import WeatherBlock from "./WeatherBlock";
+import '../CitySettings';
+import CitySettings from "../CitySettings";
 
 function WeatherCurrent(){
-    const cityName = 'Oskemen';
 
     return (
-        <WeatherBlock cityName={cityName}/>
+        <>
+            <CitySettings/>
+            <WeatherBlock/>
+        </>
     );
 }
 
