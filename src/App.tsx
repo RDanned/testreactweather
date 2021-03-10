@@ -2,8 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import {Provider} from 'react-redux';
 import store from './redux/store';
-import './App.css';
 import WeatherCurrent from "./components/WeatherCurrent";
+import './assets/css/general.css';
 
 function App() {
   return (

@@ -5,30 +5,16 @@ interface ICurrentTempProps {
     currentTemp: number;
     feelTemp: number;
     iconId: string;
+    city: string;
 }
 
 function WeatherBlockCurrentTemp(props: ICurrentTempProps){
     const currentTemp = props.currentTemp;
     const feelTemp = props.feelTemp;
 
-    let color = "white";
-
-    if(currentTemp < -25)
-        color = "blue";
-    else if(currentTemp > -25 && currentTemp < 0)
-        color = "aqua";
-    else if(currentTemp === 0)
-        color = "gray";
-    else if(currentTemp > 0 && currentTemp < 20)
-        color = "beige";
-    else if(currentTemp > 20 && currentTemp < 30)
-        color = "gold";
-    else if(currentTemp > 30)
-        color = "orange";
-
     return(
         <>
-        <div className={"weather__temp " + color }>
+        <div className="weather__temp">
             <div className="weather__current-temp">
                 {currentTemp}
             </div>

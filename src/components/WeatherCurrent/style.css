@@ -5,6 +5,34 @@
 .gold{background-color: gold;}
 .orange{background-color: orange;}
 
+.weather-current-block {
+    height: 200px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weather-current-block__header {
+    display: flex;
+}
+
+.weather-current-block__temp {
+    font-size: 70px;
+    text-align: center;
+}
+
+.weather-current-block__icon {
+    max-width: 50px;
+}
+
+
+.weather-current-block__footer {
+    display: flex;
+    align-items: center;
+}
+
+
 .weather__current-block {
     flex-direction: row;
 }

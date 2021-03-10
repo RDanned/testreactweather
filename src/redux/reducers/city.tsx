@@ -1,7 +1,7 @@
 import {ADD_CITY} from "../actionTypes";
 
 const initialState = {
-    name: ""
+    name: "Oskemen"
 };
 
 export default function(state: any = initialState, action: any){
