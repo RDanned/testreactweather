@@ -8,6 +8,9 @@ import {getCity} from '../../redux/selectors';
 import {convertToCels} from "../../utils/temp";
 import './style.css';
 import moment from 'moment';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit} from "@fortawesome/free-regular-svg-icons";
+import CitySettings from "../CitySettings";
 
 interface IWeatherIconArray {
     temp: number,
@@ -79,7 +82,7 @@ function WeatherBlock(props: any){
                             todo: add change city btn
                             */}
                             <div className="weather-current-block__place">
-                                {cityName}, {mainData.sys.country} [edt city btn]
+                                {cityName}, {mainData.sys.country} <CitySettings/>
                             </div>
                             <footer className="weather-current-block__footer">
                                 <div className="weather-current-block__feel">

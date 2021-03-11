@@ -6,10 +6,7 @@ import CitySettings from "../CitySettings";
 function WeatherCurrent(){
 
     return (
-        <>
-            <CitySettings/>
-            <WeatherBlock/>
-        </>
+        <WeatherBlock/>
     );
 }
 
