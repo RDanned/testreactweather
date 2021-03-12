@@ -26,25 +26,26 @@ function CitySettings(props: any){
     const [isError, setIsError] = useState(false);
 
 
-    const handleChange = (e: any) => {
-        let target = e.target;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>):void => {
+        let target = e.target as HTMLInputElement;
         let value = target.value;
         setCity(value);
     }
 
-    const handleSave = async (e: any) => {
+    const handleSave = async (e: React.MouseEvent<HTMLButtonElement>):Promise<any> => {
         e.preventDefault();
 
         if(await checkCity(city) && city.length > 0){
             setShowPopup(false);
             props.addCity(city);
+            setIsError(false);
         } else {
             setIsError(true);
             setError("City not found");
         }
     }
 
-    const openCitySettings = () => {
+    const openCitySettings = (e: React.MouseEvent):void => {
         setShowPopup(true);
     }
 
