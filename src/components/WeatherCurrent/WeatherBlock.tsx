@@ -23,11 +23,18 @@ function WeatherBlock(props: any){
     });
 
     const fetchData = async () => {
-        await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+        /*await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
             .then( response => {
                 setMainData(response.data);
                 setLoading(false);
-            });
+            });*/
+
+        let response:any = await axios(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`);
+
+        if(response.status === 200){
+            setMainData(response.data);
+            setLoading(false);
+        }
     };
 
     useEffect(() => {

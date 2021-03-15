@@ -3,12 +3,14 @@ import logo from './logo.svg';
 import {Provider} from 'react-redux';
 import store from './redux/store';
 import WeatherCurrent from "./components/WeatherCurrent";
+import WeatherWeek from "./components/WeatherCurrent/WeatherWeek";
 import './assets/css/general.css';
 
 function App() {
   return (
       <Provider store={store}>
         <WeatherCurrent/>
+        <WeatherWeek/>
       </Provider>
   );
 }
